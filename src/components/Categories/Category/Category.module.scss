@@ -1,0 +1,65 @@
+.component {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 0 3%;
+  border: 2px solid;
+  border-radius: 8px;
+
+  div:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      width: 100%;
+      text-align: center;
+    }
+
+    img {
+      width: 95%;
+    }
+  }
+
+  div:last-child {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    a {
+      text-decoration: none;
+      color: black;
+      cursor: pointer;
+    }
+
+    p {
+      text-align: justify;
+      text-indent: 15px;
+      line-height: 1.5em;
+      padding: 4px 0;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    padding: 0 5%;
+  }
+  @media screen and (max-width: 767px) {
+    img {
+      width: 80%;
+    }
+  }
+  @media screen and (max-width: 575px) {
+    h1 {
+      font-size: 30px;
+    }
+    p {
+      font-size: 12px;
+    }
+  }
+}

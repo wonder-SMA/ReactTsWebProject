@@ -1,0 +1,23 @@
+@mixin component($tracks) {
+  display: grid;
+  grid-template-columns: repeat($tracks, 1fr);
+  grid-gap: 8px;
+  margin: 4px 0;
+}
+
+.componentCards {
+  @include component(3);
+  @media screen and (max-width: 991px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 767px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @media screen and (max-width: 575px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.componentList {
+  @include component(1);
+}
