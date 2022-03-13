@@ -9,7 +9,7 @@ import './index.css';
 
 ReactDOM.render(
   <BrowserRouter>
-    {/*<Navbar />*/}
+    <Navbar />
     <App />
   </ BrowserRouter>,
   document.getElementById('root'),
