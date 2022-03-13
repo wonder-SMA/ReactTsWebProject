@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
+import axios from 'axios';
 
 import classes from './Catalog.module.scss';
 import Categories from '../../Categories';
@@ -10,12 +11,13 @@ import { CategoryType } from '../../Categories/Category/Category';
 import { View } from '../../Categories/Categories';
 import { useToggle, useLocalStorage } from '../../../hooks';
 
-type CatalogType = {
-  data: CategoryType[];
-};
+// type CatalogType = {
+//   data: CategoryType[];
+// };
 
-const Catalog: React.FC<CatalogType> = (props) => {
-  const { data } = props;
+const Catalog: React.FC = () => {
+  // const { data } = props;
+  const [data, setData] = useState<CategoryType[]>([]);
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [view, setView] = useState<View>('cards');
   const [count, setCount] = useState(3);
@@ -39,6 +41,14 @@ const Catalog: React.FC<CatalogType> = (props) => {
   if (globalThis.matchMedia("(min-width: 768px)" && "(max-width: 991px)").matches && count !== 4) {
     setCount(4);
   }
+
+  useEffect(() => {
+    axios
+      .get('https://www.themealdb.com/api/json/v1/1/categories.php')
+      .then((response) => {
+        setData(response.data.categories);
+      });
+  }, []);
 
   useEffect(() => {
     setCategories(data.slice(0, count));
