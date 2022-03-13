@@ -4,9 +4,9 @@
   align-items: center;
   width: 100%;
   height: 50px;
-  padding: 0 8px;
   background-color: #ee6e73;
   z-index: 999;
+
   nav {
     display: flex;
     flex-wrap: nowrap;
@@ -15,25 +15,31 @@
     max-width: 1024px;
     width: 100%;
     margin: 0 auto;
+    padding: 0 8px;
+
     a {
       text-decoration: none;
-    }
-    span {
       color: white;
-      cursor: pointer;
     }
+
     ul {
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
       text-decoration: none;
       list-style: none;
+
       li {
         margin-left: 16px;
-        span:hover {
-          text-decoration: underline;
-          text-decoration-color: white;
+        cursor: pointer;
+
+        &:hover {
+          border-bottom: 2px white solid;
         }
+      }
+
+      li:last-child {
+        white-space: pre;
       }
     }
   }

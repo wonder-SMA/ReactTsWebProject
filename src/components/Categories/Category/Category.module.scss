@@ -1,4 +1,4 @@
-.component {
+@mixin component {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -32,6 +32,10 @@
       text-decoration: none;
       color: black;
       cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     p {
@@ -39,10 +43,6 @@
       text-indent: 15px;
       line-height: 1.5em;
       padding: 4px 0;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 
@@ -61,5 +61,18 @@
     p {
       font-size: 12px;
     }
+  }
+}
+
+.componentMany {
+  @include component;
+}
+
+.componentSingle {
+  padding-top: 4px;
+  li {
+    @include component;
+    margin-top: 4px;
+    margin-bottom: 8px;
   }
 }

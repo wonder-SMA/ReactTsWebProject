@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 
@@ -11,15 +10,17 @@ import { CategoryType } from '../../Categories/Category/Category';
 import { View } from '../../Categories/Categories';
 import { useToggle, useLocalStorage } from '../../../hooks';
 
-const Catalog: React.FC = () => {
-  const [data, setData] = useState<CategoryType[]>([]);
+type CatalogType = {
+  data: CategoryType[];
+};
+
+const Catalog: React.FC<CatalogType> = (props) => {
+  const { data } = props;
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [view, setView] = useState<View>('cards');
   const [count, setCount] = useState(3);
   const [search, setSearch] = useLocalStorage('search', '');
   const [isVisible, setIsVisible] = useToggle(true);
-
-
 
   const handleShowLess = () => setCategories(data.slice(0, count));
 
@@ -33,20 +34,13 @@ const Catalog: React.FC = () => {
     setView((state) => {
       return state === 'cards' ? 'list' : 'cards'
     });
+  };
+
+  if (globalThis.matchMedia("(min-width: 768px)" && "(max-width: 991px)").matches && count !== 4) {
+    setCount(4);
   }
 
   useEffect(() => {
-    axios
-      .get('https://www.themealdb.com/api/json/v1/1/categories.php')
-      .then((response) => {
-        setData(response.data.categories);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (globalThis.matchMedia("(min-width: 768px)" && "(max-width: 991px)").matches) {
-      setCount(4);
-    }
     setCategories(data.slice(0, count));
   }, [data]);
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import cn from 'classnames';
 
 import classes from './Categories.module.scss';
@@ -17,10 +18,11 @@ export type CategoriesTypes = {
 const Categories: React.FC<CategoriesTypes> = (props) => {
   const { dataFull, data, search = '', view } = props;
   const [filtered, setFiltered] = useState<CategoryType[]>(data);
+
   useEffect(() => {
     if (search.length > 0) {
       const filteredData = dataFull.filter((category) =>
-        category.strCategory.toLowerCase().includes(search.toLowerCase()),
+        category.strCategory && category.strCategory.toLowerCase().includes(search.toLowerCase()),
       );
       setFiltered(filteredData);
     } else {
@@ -34,9 +36,15 @@ const Categories: React.FC<CategoriesTypes> = (props) => {
   });
 
   return (
-    <ul className={mainClass}>
-      {filtered.map(category => <Category key={category.idCategory} {...category}/>)}
-    </ul>
+    <Routes>
+      <Route path="/" element={
+        <ul className={mainClass}>
+          {filtered.map(category => (
+            <Category key={category.idCategory} {...category}/>
+          ))}
+        </ul>
+      }/>
+    </Routes>
   );
 };
 

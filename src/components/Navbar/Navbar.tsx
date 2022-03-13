@@ -1,17 +1,20 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import classes from './Navbar.module.scss'
+
+import CustomLink from '../CustomLink';
 
 const Navbar: React.FC = () => {
  return (
    <div className={classes['navbar-fixed']}>
      <nav>
-       <Link to="/"><span>React</span></Link>
-         <ul>
-           <li><NavLink to="/"><span>Главная</span></NavLink></li>
-           <li><NavLink to="/catalog"><span>Каталог</span></NavLink></li>
-           <li style={{ whiteSpace: 'pre' }}><NavLink to="/about"><span>О проекте</span></NavLink></li>
-         </ul>
+       <Link to="/">React</Link>
+       <ul>
+         <CustomLink to="/">Главная</CustomLink>
+         <CustomLink to="/catalog">Каталог</CustomLink>
+         <CustomLink to="/about">О проекте</CustomLink>
+       </ul>
      </nav>
    </div>
  )
