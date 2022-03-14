@@ -12,8 +12,8 @@ const Navbar: React.FC = () => {
        <Link to="/">React</Link>
        <ul>
          <CustomLink to="/">Главная</CustomLink>
-         <CustomLink to="/catalog">Каталог</CustomLink>
-         <CustomLink to="/about">О проекте</CustomLink>
+         <CustomLink to="catalog">Каталог</CustomLink>
+         <CustomLink to="about">О проекте</CustomLink>
        </ul>
      </nav>
    </div>
