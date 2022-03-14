@@ -28,10 +28,10 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/*" element={<Outlet/>}>
             <Route index element={<div style={{textAlign: 'center', marginTop: '50px'}}>WELCOME!</div>}/>
-            <Route path="/home" element={<Home/>}/>
-            <Route path="/catalog/*" element={<Catalog data={data}/>}/>
-            <Route path="/catalog/:id" element={<Category data={data}/>}/>
-            <Route path="/about" element={<About/>}/>
+            <Route path="home" element={<Home/>}/>
+            <Route path="catalog/*" element={<Catalog data={data}/>}/>
+            <Route path="catalog/:id" element={<Category data={data}/>}/>
+            <Route path="about" element={<About/>}/>
           </Route>
         </Routes>
       </div>
