@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
 import Catalog from '../routes/Catalog';
@@ -23,10 +23,12 @@ const App: React.FC = () => {
   return (
     <div className={classes.component}>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="catalog/*" element={<Catalog data={data} />} />
-        <Route path="catalog/:id" element={<Category data={data} />} />
-        <Route path="about" element={<About />} />
+        <Route path="/" element={<Outlet />}>
+          <Route path="home" element={<Home />} />
+          <Route path="catalog/*" element={<Catalog data={data} />} />
+          <Route path="catalog/:id" element={<Category data={data} />} />
+          <Route path="about" element={<About />} />
+        </Route>
       </Routes>
     </div>
   );
