@@ -26,7 +26,7 @@ const App: React.FC = () => {
       <Navbar/>
       <div className={classes.component}>
         <Routes>
-          <Route path="*/*" element={<Outlet/>}>
+          <Route path="/*" element={<Outlet/>}>
             <Route index element={<div style={{textAlign: 'center', marginTop: '50px'}}>WELCOME!</div>}/>
             <Route path="home" element={<Home/>}/>
             <Route path="catalog/*" element={<Catalog data={data}/>}/>
