@@ -33,8 +33,14 @@
         margin-left: 16px;
         cursor: pointer;
 
-        &:hover {
+        &:active {
           border-bottom: 2px white solid;
+        }
+
+        @media screen and (min-width: 1024px) {
+          &:hover {
+            border-bottom: 2px white solid;
+          }
         }
       }
 
