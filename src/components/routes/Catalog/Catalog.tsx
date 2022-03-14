@@ -15,7 +15,7 @@ type CatalogType = {
 };
 
 const Catalog: React.FC<CatalogType> = (props) => {
-  const { data } = props;
+  const { data = [] } = props;
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [view, setView] = useState<View>('cards');
   const [count, setCount] = useState(3);
