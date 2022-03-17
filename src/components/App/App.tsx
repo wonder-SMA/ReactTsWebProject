@@ -27,7 +27,7 @@ const App: React.FC = () => {
       <div className={classes.component}>
         <Routes>
           <Route path="/*" element={<Outlet/>}>
-            <Route index element={<div style={{textAlign: 'center', marginTop: '50px'}}>WELCOME!</div>}/>
+            <Route index element={<div style={{textAlign: 'center', marginTop: '50px'}}><h1>WELCOME!</h1></div>}/>
             <Route path="home" element={<Home/>}/>
             <Route path="catalog/*" element={<Catalog data={data}/>}/>
             <Route path="catalog/:id" element={<Category data={data}/>}/>
