@@ -15,7 +15,7 @@ type CatalogType = {
 };
 
 const Catalog: React.FC<CatalogType> = (props) => {
-  const { data } = props;
+  const { data = [] } = props;
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [view, setView] = useState<View>('cards');
   const [count, setCount] = useState(3);
@@ -36,6 +36,10 @@ const Catalog: React.FC<CatalogType> = (props) => {
     });
   };
 
+  const handleScrollTop = () => {
+    globalThis.scrollTo(0,0);
+  }
+
   if (globalThis.matchMedia("(min-width: 768px)" && "(max-width: 991px)").matches && count !== 4) {
     setCount(4);
   }
@@ -43,6 +47,18 @@ const Catalog: React.FC<CatalogType> = (props) => {
   useEffect(() => {
     setCategories(data.slice(0, count));
   }, [data]);
+
+  const buttonUp: React.CSSProperties = {
+    position: 'absolute',
+    bottom: 10,
+    right: 0,
+    width: "30px",
+    padding: "6px",
+    margin: 0,
+    color: "white",
+    backgroundColor: "#59bd5a",
+    opacity: "0.6",
+  };
 
   return (
     data.length === 0 ? <Backdrop
@@ -59,12 +75,12 @@ const Catalog: React.FC<CatalogType> = (props) => {
         {isVisible && <Search search={search} handleSearch={handleSearch}/>}
         {(!search && categories.length > count) &&
           <Button onClick={handleShowLess}>Скрыть список</Button>}
-        <>
-          {categories.length === 0 ? <CircularProgress/> :
-            <Categories dataFull={data} data={categories} search={search} view={view}/>}
-        </>
+        {categories.length === 0 ? <CircularProgress/> :
+          <Categories dataFull={data} data={categories} search={search} view={view}/>}
         {(!search && data.length > categories.length) &&
           <Button onClick={handleShowMore}>Показать еще</Button>}
+        {(categories.length > count) &&
+          <Button style={buttonUp} onClick={handleScrollTop}>&#9650;</Button>}
       </main>
   );
 };

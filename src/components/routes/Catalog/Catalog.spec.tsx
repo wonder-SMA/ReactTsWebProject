@@ -1,12 +1,13 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { render, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import axios from 'axios';
 
 import Catalog from './';
 
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+// jest.mock('axios');
+// const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('Catalog component', () => {
   it('Should render with search, which works correctly', async () => {
@@ -18,17 +19,21 @@ describe('Catalog component', () => {
       },
     ];
 
-    mockedAxios.get.mockImplementationOnce(() => Promise.resolve({data: categories}))
+    // mockedAxios.get.mockImplementationOnce(() => Promise.resolve({data: categories}));
 
-    render(<Catalog />);
+    const { getByText, getByRole, queryByText } = render(
+      <MemoryRouter>
+        <Catalog data={categories}/>
+      </MemoryRouter>
+    );
 
-    await act(() => Promise.resolve<any>({data: categories}));
-    expect(screen.getByText('Miscellaneous')).toBeInTheDocument();
+    // await act(() => Promise.resolve<any>({data: categories}));
+    expect(getByText('Miscellaneous')).toBeInTheDocument();
 
-    userEvent.type(screen.getByRole('textbox'), 'Miscellaneous');
-    expect(screen.getByText('Miscellaneous')).toBeInTheDocument();
+    userEvent.type(getByRole('textbox'), 'Miscellaneous');
+    expect(getByText('Miscellaneous')).toBeInTheDocument();
 
-    userEvent.type(screen.getByRole('textbox'), 'Ramda');
-    expect(screen.queryByText('Miscellaneous')).toBeNull();
+    userEvent.type(getByRole('textbox'), 'Ramda');
+    expect(queryByText('Miscellaneous')).toBeNull();
   });
 });

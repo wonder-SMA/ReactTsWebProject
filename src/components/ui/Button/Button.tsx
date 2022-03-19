@@ -2,18 +2,20 @@ import React from 'react';
 
 import classes from './Button.module.scss';
 
-export type ButtonType = {
-  onClick?: () => void
+type ButtonType = {
+  onClick?: () => void;
+  style?: React.CSSProperties;
 };
 
 const Button: React.FC<ButtonType> = (props) => {
-  const { children, onClick } = props;
+  const { children, onClick, style } = props;
 
   return (
     <button
       className={classes.component}
       type="button"
       onClick={onClick}
+      style={style}
     >
       {children}
     </button>
