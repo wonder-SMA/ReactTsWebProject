@@ -9,7 +9,7 @@ describe('Search component', () => {
     const mockCallback = jest.fn();
     const { getByRole } = render(
       <Search
-        search=""
+        searchValue=""
         handleSearch={mockCallback} />
     );
     userEvent.type(getByRole('textbox'), 'React');
@@ -20,7 +20,7 @@ describe('Search component', () => {
     const mockCallback = jest.fn();
     const { getByDisplayValue } = render(
       <Search
-        search='test'
+        searchValue='test'
         handleSearch={(event) => {
           mockCallback(event.target.value)
         }} />
@@ -35,14 +35,14 @@ describe('Search component', () => {
   });
   it('Should contain placeholder by default', () => {
     const mockCallback = jest.fn();
-    const { getAllByPlaceholderText } = render(<Search search="" handleSearch={mockCallback} />);
+    const { getAllByPlaceholderText } = render(<Search searchValue="" handleSearch={mockCallback} />);
     expect(getAllByPlaceholderText('Search...')[0]).toBeInTheDocument();
   });
 });
 
 describe('Search snapshot', () => {
   it("Search snapshot didn't change", () => {
-    const component = render(<Search search="" handleSearch={() => {}}/>);
+    const component = render(<Search searchValue="" handleSearch={() => {}}/>);
     expect(component).toMatchSnapshot();
   });
 });

@@ -65,7 +65,7 @@ describe('on catalog page load', () => {
     await page.click("input[class^='Search_component__']");
     await page.keyboard.type('Lamb');
     const value = await page.evaluate(() => {
-      return localStorage.getItem('search')
+      return localStorage.getItem('searchValue')
     });
     await page.evaluate(() => {
       localStorage.clear();

@@ -3,14 +3,14 @@ import React from 'react';
 import classes from './Search.module.scss';
 
 type SearchType = {
-  search: string;
+  searchValue?: string;
   handleSearch: React.ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
 };
 
 const Search: React.FC<SearchType> = (props) => {
   const {
-    search,
+    searchValue,
     handleSearch,
     placeholder = 'Search...',
   } = props;
@@ -18,7 +18,7 @@ const Search: React.FC<SearchType> = (props) => {
   return (
     <input
       type="text"
-      value={search}
+      value={searchValue}
       onChange={handleSearch}
       className={classes.component}
       placeholder={placeholder}

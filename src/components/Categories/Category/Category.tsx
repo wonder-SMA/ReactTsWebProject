@@ -1,7 +1,10 @@
 import React, { memo } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import cn from 'classnames';
 
 import Button from '../../ui/Button';
+import foodCategoriesStore from '../../../stores/foodCategoriesStore';
 import classes from './Category.module.scss';
 
 export type CategoryType = {
@@ -9,20 +12,23 @@ export type CategoryType = {
   strCategory?: string;
   strCategoryThumb?: string;
   strCategoryDescription?: string;
-  data?: CategoryType[];
 };
 
-const Category: React.FC<CategoryType> = (props) => {
-  const { idCategory, strCategory, strCategoryThumb, strCategoryDescription, data } = props;
-  const navigate = useNavigate();
+const Category: React.FC<CategoryType> = observer((props) => {
+  const { idCategory, strCategory, strCategoryThumb, strCategoryDescription } = props;
   const { id } = useParams();
-  const category = data && data[Number(id) - 1];
-  let description = strCategoryDescription &&
-    strCategoryDescription.slice(0, 140).split(' ').slice(0, -1).join(' ') + ' . . .';
+  const navigate = useNavigate();
+  const category = foodCategoriesStore.fullData.length > 0 && foodCategoriesStore.fullData[Number(id) - 1];
+  let description = strCategoryDescription?.slice(0, 140).split(' ').slice(0, -1).join(' ') + ' . . .';
+
+  const mainClass = cn({
+    [classes.componentSingle]: !!id,
+    [classes.componentMany]: !!idCategory,
+  });
 
   return (
     category && id ?
-      <div className={classes.componentSingle}>
+      <div className={mainClass}>
         <Button onClick={() => navigate(-1)}>Назад</Button>
         <li>
           <div>
@@ -34,7 +40,7 @@ const Category: React.FC<CategoryType> = (props) => {
           </div>
         </li>
       </div> :
-      <li className={classes.componentMany}>
+      <li className={mainClass}>
       <div>
         <h1>{strCategory}</h1>
         <img src={strCategoryThumb} alt={'Photo ' + strCategory} title={strCategory}/>
@@ -44,6 +50,6 @@ const Category: React.FC<CategoryType> = (props) => {
       </div>
     </li>
   );
-}
+});
 
 export default memo(Category);
