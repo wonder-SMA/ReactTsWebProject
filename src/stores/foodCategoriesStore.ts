@@ -9,6 +9,7 @@ class FoodCategoriesStore {
   defaultCount: number = 3;
   count: number = 1;
   category: CategoryType = {};
+  isMobile: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -44,8 +45,8 @@ class FoodCategoriesStore {
     this.count += count;
   }
 
-  get isMobile(): boolean {
-    return globalThis.matchMedia('max-width: 575p').matches;
+  setIsMobile() {
+    this.isMobile = globalThis.matchMedia('(max-width: 575px)').matches;
   }
 }
 

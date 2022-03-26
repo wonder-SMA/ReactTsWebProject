@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -8,8 +9,12 @@ import CustomLink from '../CustomLink';
 import { useToggle } from '../../hooks';
 import foodCategoriesStore from '../../stores/foodCategoriesStore';
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC = observer(() => {
   const [isActive, setIsActive] = useToggle(false);
+
+  useEffect(() => {
+    foodCategoriesStore.setIsMobile();
+  }, []);
 
   const menuBtn = cn({
     [classes['menu__btn']]: !isActive,
@@ -31,6 +36,6 @@ const Navbar: React.FC = () => {
       </nav>
     </div>
   );
-};
+});
 
 export default Navbar;
