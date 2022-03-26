@@ -8,13 +8,14 @@ describe('CustomLink component', () => {
   it('Should contain text node', () => {
     const { container, getByText } = render(
       <MemoryRouter>
-      <CustomLink to="home">Главная</CustomLink>
-        </MemoryRouter>
+        <CustomLink to="home">Главная</CustomLink>
+      </MemoryRouter>
     );
     expect(getByText('Главная')).toBeInTheDocument();
-    expect(getByText('Главная')).toBeInTheDocument();
     expect(container.firstChild).toMatchInlineSnapshot(`
-      <li>
+      <li
+        class="component"
+      >
         <a
           href="/home"
         >

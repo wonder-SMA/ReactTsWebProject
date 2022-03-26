@@ -5,9 +5,9 @@ import { CategoryType } from '../components/Categories/Category/Category';
 
 class FoodCategoriesStore {
   fullData: CategoryType[] = [];
-  shortData: CategoryType[] = [];
   searchValue: string = '';
-  count: number = 3;
+  defaultCount: number = 3;
+  count: number = 1;
   category: CategoryType = {};
 
   constructor() {
@@ -27,15 +27,25 @@ class FoodCategoriesStore {
   }
 
   setFilter(value: string) {
-    this.searchValue = value
+    this.searchValue = value;
   }
 
-  setShortData(end: number = this.count) {
-    this.shortData = this.fullData.slice(0, end);
+  get shortData(): CategoryType[] {
+    return this.fullData.slice(0, this.count * this.defaultCount);
   }
 
-  setCount(count: number) {
-    this.count = count
+  setDefaultCount() {
+    if (globalThis.matchMedia('(min-width: 768px)' && '(max-width: 991px)').matches) {
+      this.defaultCount = 4;
+    }
+  }
+
+  setCount(count: number = 1) {
+    this.count += count;
+  }
+
+  get isMobile(): boolean {
+    return globalThis.matchMedia('max-width: 575p').matches;
   }
 }
 

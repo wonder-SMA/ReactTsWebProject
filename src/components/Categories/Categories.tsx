@@ -27,7 +27,7 @@ const Categories: React.FC<CategoriesTypes> = observer((props) => {
             <Category key={category.idCategory} {...category} />
           ))}
         </ul>
-      }/>
+      } />
     </Routes>
   );
 });
