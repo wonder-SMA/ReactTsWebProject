@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { observer } from 'mobx-react-lite';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -7,14 +6,9 @@ import classes from './Navbar.module.scss';
 
 import CustomLink from '../CustomLink';
 import { useToggle } from '../../hooks';
-import foodCategoriesStore from '../../stores/foodCategoriesStore';
 
-const Navbar: React.FC = observer(() => {
+const Navbar: React.FC = () => {
   const [isActive, setIsActive] = useToggle(false);
-
-  useEffect(() => {
-    foodCategoriesStore.setIsMobile();
-  }, []);
 
   const menuBtn = cn({
     [classes['menu__btn']]: !isActive,
@@ -25,9 +19,9 @@ const Navbar: React.FC = observer(() => {
     <div className={classes['navbar_fixed']}>
       <nav>
         <Link to="/">React</Link>
-        {foodCategoriesStore.isMobile && <div className={menuBtn} onClick={setIsActive}>
+        <div className={menuBtn} onClick={setIsActive}>
           <span />
-        </div>}
+        </div>
         <ul>
           <CustomLink to="home" onClick={setIsActive}>Главная</CustomLink>
           <CustomLink to="catalog" onClick={setIsActive}>Каталог</CustomLink>
@@ -36,6 +30,6 @@ const Navbar: React.FC = observer(() => {
       </nav>
     </div>
   );
-});
+};
 
 export default Navbar;

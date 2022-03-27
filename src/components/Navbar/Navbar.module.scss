@@ -17,6 +17,10 @@
     margin: 0 auto;
     padding: 0 8px;
 
+    .menu__btn {
+      display: none;
+    }
+
     a {
       text-decoration: none;
       color: white;

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import CircularProgress from '@mui/material/CircularProgress';
-// import Backdrop from '@mui/material/Backdrop';
 
 import classes from './Catalog.module.scss';
 import Categories from '../../Categories';
 import Search from '../../Search';
 import Button from '../../ui/Button';
+import ButtonUp from '../../ui/ButtonUp';
 import { useToggle, useLocalStorage } from '../../../hooks';
 import foodCategoriesStore from '../../../stores/foodCategoriesStore';
 
@@ -42,12 +42,6 @@ const Catalog: React.FC = observer(() => {
   }, []);
 
   return (
-    // fullData.length === 0 ? <Backdrop
-    //     sx={{color: '#fff'}}
-    //     open
-    //   >
-    //     <CircularProgress color="inherit"/>
-    //   </Backdrop> :
     <main className={classes.component}>
       <div>
         <Button onClick={setIsVisible}>Search on / off</Button>
@@ -64,8 +58,7 @@ const Catalog: React.FC = observer(() => {
       {(!searchValue && fullData.length > shortData.length) &&
         <Button onClick={handleShowMore}>Показать еще</Button>}
 
-      {(shortData.length > defaultCount) &&
-        <Button onClick={handleScrollTop} buttonUp>&#9650;</Button>}
+      <ButtonUp onClick={handleScrollTop}>&#9650;</ButtonUp>
     </main>
   );
 });

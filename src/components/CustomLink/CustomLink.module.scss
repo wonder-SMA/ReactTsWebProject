@@ -1,21 +1,34 @@
 .component {
-  position: relative;
   margin-left: 16px;
   cursor: pointer;
 
-  @media screen and (max-width: 575px) {
-    & {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 120px;
-      height: 46px;
-      margin: 4px 0;
-      border: 2px solid white;
-      border-radius: 8px;
+  .link {
+    border-bottom: 2px white solid;
+  }
+
+  .arrow_left, .arrow_right {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .component {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 46px;
+    margin: 4px 0;
+    border: 2px solid white;
+    border-radius: 8px;
+
+    .link {
+      border-bottom: none;
     }
 
     @mixin arrow {
+      display: block;
       position: absolute;
       font-size: 28px;
       color: white;

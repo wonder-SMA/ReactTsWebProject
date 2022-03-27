@@ -9,7 +9,7 @@ class FoodCategoriesStore {
   defaultCount: number = 3;
   count: number = 1;
   category: CategoryType = {};
-  isMobile: boolean = false;
+  scroll: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -36,7 +36,7 @@ class FoodCategoriesStore {
   }
 
   setDefaultCount() {
-    if (globalThis.matchMedia('(min-width: 768px)' && '(max-width: 991px)').matches) {
+    if (window.matchMedia('(min-width: 768px)' && '(max-width: 991px)').matches) {
       this.defaultCount = 4;
     }
   }
@@ -45,8 +45,8 @@ class FoodCategoriesStore {
     this.count += count;
   }
 
-  setIsMobile() {
-    this.isMobile = globalThis.matchMedia('(max-width: 575px)').matches;
+  setScroll() {
+    this.scroll = window.pageYOffset > document.documentElement.clientHeight;
   }
 }
 
