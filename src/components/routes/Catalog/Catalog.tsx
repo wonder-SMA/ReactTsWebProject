@@ -3,10 +3,10 @@ import { observer } from 'mobx-react-lite';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import classes from './Catalog.module.scss';
+
 import Categories from '../../Categories';
 import Search from '../../Search';
 import Button from '../../ui/Button';
-import ButtonUp from '../../ui/ButtonUp';
 import { useToggle, useLocalStorage } from '../../../hooks';
 import foodCategoriesStore from '../../../stores/foodCategoriesStore';
 
@@ -27,10 +27,6 @@ const Catalog: React.FC = observer(() => {
 
   const handleChangeView = () => {
     setView(view === 'cards' ? 'list' : 'cards');
-  };
-
-  const handleScrollTop = () => {
-    globalThis.scrollTo(0, 0);
   };
 
   const handleShowLess = () => foodCategoriesStore.setCount(1 - count);
@@ -57,8 +53,6 @@ const Catalog: React.FC = observer(() => {
 
       {(!searchValue && fullData.length > shortData.length) &&
         <Button onClick={handleShowMore}>Показать еще</Button>}
-
-      <ButtonUp onClick={handleScrollTop}>&#9650;</ButtonUp>
     </main>
   );
 });
