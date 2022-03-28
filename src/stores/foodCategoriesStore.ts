@@ -9,7 +9,7 @@ class FoodCategoriesStore {
   defaultCount: number = 3;
   count: number = 1;
   category: CategoryType = {};
-  scroll: boolean = false;
+  isShowingButtonUp: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -45,8 +45,8 @@ class FoodCategoriesStore {
     this.count += count;
   }
 
-  setScroll() {
-    this.scroll = window.pageYOffset > document.documentElement.clientHeight;
+  setIsShowingButtonUp() {
+    this.isShowingButtonUp = window.scrollY > document.documentElement.clientHeight;
   }
 }
 

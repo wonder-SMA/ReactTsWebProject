@@ -13,15 +13,15 @@ const ButtonUp: React.FC<ButtonType> = observer((props) => {
   const { children, onClick } = props;
 
   useEffect(() => {
-    window.addEventListener('scroll', () => foodCategoriesStore.setScroll());
+    window.addEventListener('scroll', () => foodCategoriesStore.setIsShowingButtonUp());
     return function cleanup() {
-      window.removeEventListener('scroll', () => foodCategoriesStore.setScroll());
+      window.removeEventListener('scroll', () => foodCategoriesStore.setIsShowingButtonUp());
     };
   }, []);
 
   const button = cn({
-    [classes.button]: !foodCategoriesStore.scroll,
-    [classes.button_active]: foodCategoriesStore.scroll,
+    [classes.button]: !foodCategoriesStore.isShowingButtonUp,
+    [classes.button_active]: foodCategoriesStore.isShowingButtonUp,
   });
 
   return (

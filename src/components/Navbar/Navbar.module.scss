@@ -100,7 +100,7 @@
         @include menuBtn;
 
         span {
-          transform: rotate(45deg);
+          transform: rotate(-45deg);
         }
 
         span:before {
@@ -110,7 +110,7 @@
 
         span:after {
           top: 0;
-          transform: rotate(-90deg);
+          transform: rotate(90deg);
         }
 
         & ~ ul {
