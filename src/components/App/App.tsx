@@ -11,15 +11,15 @@ import Category from '../Categories/Category';
 const App: React.FC = () => {
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className={classes.component}>
         <Routes>
-          <Route path="/*" element={<Outlet/>}>
-            <Route index element={<div style={{textAlign: 'center', marginTop: '50px'}}><h1>WELCOME!</h1></div>}/>
-            <Route path="home" element={<Home/>}/>
-            <Route path="catalog/*" element={<Catalog/>}/>
-            <Route path="catalog/:id" element={<Category/>}/>
-            <Route path="about" element={<About/>}/>
+          <Route path="/*" element={<Outlet />}>
+            <Route index element={<div style={{ textAlign: 'center', marginTop: '50px' }}><h1>WELCOME!</h1></div>} />
+            <Route path="home" element={<Home />} />
+            <Route path="catalog/*" element={<Catalog />} />
+            <Route path="catalog/:id" element={<Category />} />
+            <Route path="about" element={<About />} />
           </Route>
         </Routes>
       </div>

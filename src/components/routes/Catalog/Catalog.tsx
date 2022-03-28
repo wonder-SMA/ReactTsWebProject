@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import CircularProgress from '@mui/material/CircularProgress';
+// import CircularProgress from '@mui/material/CircularProgress';
 
 import classes from './Catalog.module.scss';
 
@@ -31,11 +31,18 @@ const Catalog: React.FC = observer(() => {
 
   const handleShowLess = () => foodCategoriesStore.setCount(1 - count);
 
-  const handleShowMore = () => foodCategoriesStore.setCount();
+  const handleShowMore = () => {
+    foodCategoriesStore.setCount();
+    if (foodCategoriesStore.scroll !== 0) {
+      foodCategoriesStore.setScroll(0);
+    }
+  };
 
-  useEffect(() => {
-    foodCategoriesStore.setDefaultCount();
-  }, []);
+  useLayoutEffect(() => {
+    if (foodCategoriesStore.imgCount === shortData.length && foodCategoriesStore.scroll !== 0) {
+      window.scrollTo({ top: foodCategoriesStore.scroll, behavior: 'smooth' });
+    }
+  }, [foodCategoriesStore.imgCount]);
 
   return (
     <main className={classes.component}>
@@ -48,8 +55,7 @@ const Catalog: React.FC = observer(() => {
 
       {isVisible && <Search searchValue={searchValue} handleSearch={handleSearch} />}
 
-      {shortData.length === 0 ? <CircularProgress /> :
-        <Categories view={view} />}
+      <Categories view={view} />
 
       {(!searchValue && fullData.length > shortData.length) &&
         <Button onClick={handleShowMore}>Показать еще</Button>}

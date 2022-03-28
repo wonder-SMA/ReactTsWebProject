@@ -10,12 +10,15 @@ class FoodCategoriesStore {
   count: number = 1;
   category: CategoryType = {};
   isShowingButtonUp: boolean = false;
+  scroll: number = 0;
+  imgCount: number = 0;
 
   constructor() {
     makeAutoObservable(this);
     service.getSomeData().then(data => {
       runInAction(() => this.fullData = data);
     });
+    this.setDefaultCount();
   }
 
   get filteredData(): CategoryType[] {
@@ -47,6 +50,14 @@ class FoodCategoriesStore {
 
   setIsShowingButtonUp() {
     this.isShowingButtonUp = window.scrollY > document.documentElement.clientHeight;
+  }
+
+  setScroll(scroll: number) {
+    this.scroll = scroll;
+  }
+
+  setImgCount(count: number = 1) {
+    this.imgCount += count;
   }
 }
 

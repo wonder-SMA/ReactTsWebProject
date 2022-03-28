@@ -22,14 +22,24 @@ const Category: React.FC<CategoryType> = observer((props) => {
   let description = strCategoryDescription?.slice(0, 140).split(' ').slice(0, -1).join(' ') + ' . . .';
 
   const handleClick = () => {
-    foodCategoriesStore.setCount(1 - foodCategoriesStore.count);
+    foodCategoriesStore.setImgCount(-foodCategoriesStore.imgCount)
     navigate(-1);
+  };
+
+  const handleSetScroll = () => {
+    foodCategoriesStore.setScroll(window.scrollY);
+  };
+
+  const handleSetImgCount = () => {
+    foodCategoriesStore.setImgCount();
   };
 
   const mainClass = cn({
     [classes.componentSingle]: !!id,
     [classes.componentMany]: !!idCategory,
   });
+
+  id && window.scrollTo(0, 0);
 
   return (
     category && id ?
@@ -38,7 +48,9 @@ const Category: React.FC<CategoryType> = observer((props) => {
         <li>
           <div>
             <h1>{category.strCategory}</h1>
-            <img src={category.strCategoryThumb} alt={'Photo ' + category.strCategory} title={category.strCategory} />
+            <img src={category.strCategoryThumb}
+                 alt={'Photo ' + category.strCategory}
+                 title={category.strCategory} />
           </div>
           <div>
             <p>{category.strCategoryDescription}</p>
@@ -48,10 +60,13 @@ const Category: React.FC<CategoryType> = observer((props) => {
       <li className={mainClass}>
         <div>
           <h1>{strCategory}</h1>
-          <img src={strCategoryThumb} alt={'Photo ' + strCategory} title={strCategory} />
+          <img src={strCategoryThumb}
+               onLoad={handleSetImgCount}
+               alt={'Photo ' + strCategory}
+               title={strCategory} />
         </div>
         <div>
-          <Link to={`${idCategory}`}><p>{description}</p></Link>
+          <Link to={`${idCategory}`} onClick={handleSetScroll}><p>{description}</p></Link>
         </div>
       </li>
   );
