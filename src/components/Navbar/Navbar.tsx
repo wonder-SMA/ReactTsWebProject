@@ -9,6 +9,7 @@ import classes from './Navbar.module.scss';
 import CustomLink from '../CustomLink';
 import { useToggle } from '../../hooks';
 import ButtonUp from '../ui/ButtonUp';
+import foodCategoriesStore from '../../stores/foodCategoriesStore';
 
 const Navbar: React.FC = () => {
   const [isActive, setIsActive] = useToggle(false);
@@ -19,6 +20,9 @@ const Navbar: React.FC = () => {
 
   const handleClick = () => {
     window.scrollTo(0, 0);
+    if (foodCategoriesStore.scroll !== 0) {
+      foodCategoriesStore.setScroll(0);
+    }
     setIsActive();
   };
 
