@@ -1,34 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 import cn from 'classnames';
 
 import classes from './Categories.module.scss';
 import Category from './Category';
-import { CategoryType } from './Category/Category';
-
-export type View = 'list' | 'cards';
+import foodCategoriesStore from '../../stores/foodCategoriesStore';
 
 export type CategoriesTypes = {
-  dataFull: CategoryType[];
-  data: CategoryType[];
-  search?: string;
-  view: View;
+  view: 'list' | 'cards';
 };
 
-const Categories: React.FC<CategoriesTypes> = (props) => {
-  const { dataFull, data, search = '', view } = props;
-  const [filtered, setFiltered] = useState<CategoryType[]>(data);
-
-  useEffect(() => {
-    if (search.length > 0) {
-      const filteredData = dataFull.filter((category) =>
-        category.strCategory && category.strCategory.toLowerCase().includes(search.toLowerCase()),
-      );
-      setFiltered(filteredData);
-    } else {
-      setFiltered(data);
-    }
-  }, [search, dataFull, data]);
+const Categories: React.FC<CategoriesTypes> = observer((props) => {
+  const { view } = props;
 
   const mainClass = cn({
     [classes.componentCards]: view === 'cards',
@@ -39,13 +23,13 @@ const Categories: React.FC<CategoriesTypes> = (props) => {
     <Routes>
       <Route path="/" element={
         <ul className={mainClass}>
-          {filtered.map(category => (
-            <Category key={category.idCategory} {...category}/>
+          {foodCategoriesStore.filteredData.map(category => (
+            <Category key={category.idCategory} {...category} />
           ))}
         </ul>
-      }/>
+      } />
     </Routes>
   );
-};
+});
 
 export default Categories;

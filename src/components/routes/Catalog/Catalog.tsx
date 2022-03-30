@@ -1,88 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import Backdrop from '@mui/material/Backdrop';
+import React, { useLayoutEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 
 import classes from './Catalog.module.scss';
+
 import Categories from '../../Categories';
 import Search from '../../Search';
 import Button from '../../ui/Button';
-import { CategoryType } from '../../Categories/Category/Category';
-import { View } from '../../Categories/Categories';
 import { useToggle, useLocalStorage } from '../../../hooks';
+import foodCategoriesStore from '../../../stores/foodCategoriesStore';
 
-type CatalogType = {
-  data: CategoryType[];
-};
+const Catalog: React.FC = observer(() => {
+  const fullData = foodCategoriesStore.fullData;
+  const defaultCount = foodCategoriesStore.defaultCount;
+  const count = foodCategoriesStore.count;
+  const shortData = foodCategoriesStore.shortData;
 
-const Catalog: React.FC<CatalogType> = (props) => {
-  const { data = [] } = props;
-  const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [view, setView] = useState<View>('cards');
-  const [count, setCount] = useState(3);
-  const [search, setSearch] = useLocalStorage('search', '');
+  const [view, setView] = useLocalStorage<'list' | 'cards'>('view', 'cards');
+  const [searchValue, setSearch] = useLocalStorage('searchValue', '');
   const [isVisible, setIsVisible] = useToggle(true);
 
-  const handleShowLess = () => setCategories(data.slice(0, count));
-
-  const handleShowMore = () => setCategories(data.slice(0, categories.length + count));
-
-  const handleSearch: React.ChangeEventHandler<HTMLInputElement> = (event) => (
-    setSearch(event.target.value)
-  );
+  const handleSearch: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    setSearch(event.target.value);
+    foodCategoriesStore.setFilter(event.target.value);
+  };
 
   const handleChangeView = () => {
-    setView((state) => {
-      return state === 'cards' ? 'list' : 'cards'
-    });
+    setView(view === 'cards' ? 'list' : 'cards');
   };
 
-  const handleScrollTop = () => {
-    globalThis.scrollTo(0,0);
-  }
+  const handleShowLess = () => foodCategoriesStore.setCount(1 - count);
 
-  if (globalThis.matchMedia("(min-width: 768px)" && "(max-width: 991px)").matches && count !== 4) {
-    setCount(4);
-  }
-
-  useEffect(() => {
-    setCategories(data.slice(0, count));
-  }, [data]);
-
-  const buttonUp: React.CSSProperties = {
-    position: 'absolute',
-    bottom: 10,
-    right: 0,
-    width: "30px",
-    padding: "6px",
-    margin: 0,
-    color: "white",
-    backgroundColor: "#59bd5a",
-    opacity: "0.6",
+  const handleShowMore = () => {
+    foodCategoriesStore.setCount();
+    if (foodCategoriesStore.scroll !== 0) {
+      foodCategoriesStore.setScroll(0);
+    }
   };
+
+  useLayoutEffect(() => {
+    if (foodCategoriesStore.imgCount === shortData.length && foodCategoriesStore.scroll !== 0) {
+      window.scrollTo({ top: foodCategoriesStore.scroll, behavior: 'smooth' });
+    }
+  }, [foodCategoriesStore.imgCount]);
 
   return (
-    data.length === 0 ? <Backdrop
-        sx={{color: '#fff'}}
-        open
-      >
-        <CircularProgress color="inherit"/>
-      </Backdrop> :
-      <main className={classes.component}>
-        <div>
-          <Button onClick={setIsVisible}>Search on / off</Button>
-          <Button onClick={handleChangeView}>List / Cards</Button>
-        </div>
-        {isVisible && <Search search={search} handleSearch={handleSearch}/>}
-        {(!search && categories.length > count) &&
+    <main className={classes.component}>
+      <div>
+        <Button onClick={setIsVisible}>Search on / off</Button>
+        {(!searchValue && shortData.length > defaultCount) &&
           <Button onClick={handleShowLess}>Скрыть список</Button>}
-        {categories.length === 0 ? <CircularProgress/> :
-          <Categories dataFull={data} data={categories} search={search} view={view}/>}
-        {(!search && data.length > categories.length) &&
-          <Button onClick={handleShowMore}>Показать еще</Button>}
-        {(categories.length > count) &&
-          <Button style={buttonUp} onClick={handleScrollTop}>&#9650;</Button>}
-      </main>
+        <Button onClick={handleChangeView}>List / Cards</Button>
+      </div>
+
+      {isVisible && <Search searchValue={searchValue} handleSearch={handleSearch} />}
+
+      <Categories view={view} />
+
+      {(!searchValue && fullData.length > shortData.length) &&
+        <Button onClick={handleShowMore}>Показать еще</Button>}
+    </main>
   );
-};
+});
 
 export default Catalog;

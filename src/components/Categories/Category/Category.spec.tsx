@@ -3,7 +3,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 
 import Category from './';
-import CustomLink from '../../CustomLink';
 
 describe('Category component', () => {
   it('Should render with heading and description', () => {
