@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 
 import Button from '../../ui/Button';
-import foodCategoriesStore from '../../../stores/foodCategoriesStore';
 import classes from './Category.module.scss';
+import { StoreContext } from '../../Context/StoreContext';
 
 export type CategoryType = {
   idCategory?: string;
@@ -16,22 +16,23 @@ export type CategoryType = {
 
 const Category: React.FC<CategoryType> = observer((props) => {
   const { idCategory, strCategory, strCategoryThumb, strCategoryDescription } = props;
+  const store = useContext(StoreContext);
   const { id } = useParams();
   const navigate = useNavigate();
-  const category = foodCategoriesStore.fullData.length > 0 && foodCategoriesStore.fullData[Number(id) - 1];
+  const category = store.fullData.length > 0 && store.fullData[Number(id) - 1];
   let description = strCategoryDescription?.slice(0, 140).split(' ').slice(0, -1).join(' ') + ' . . .';
 
   const handleClick = () => {
-    foodCategoriesStore.setImgCount(-foodCategoriesStore.imgCount)
+    store.setImgCount(-store.imgCount);
     navigate(-1);
   };
 
   const handleSetScroll = () => {
-    foodCategoriesStore.setScroll(window.scrollY);
+    store.setScroll(window.scrollY);
   };
 
   const handleSetImgCount = () => {
-    foodCategoriesStore.setImgCount();
+    store.setImgCount();
   };
 
   const mainClass = cn({

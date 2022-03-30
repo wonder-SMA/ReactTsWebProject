@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
@@ -10,10 +10,11 @@ import classes from './Navbar.module.scss';
 import CustomLink from '../CustomLink';
 import { useToggle } from '../../hooks';
 import ButtonUp from '../ui/ButtonUp';
-import foodCategoriesStore from '../../stores/foodCategoriesStore';
+import { StoreContext } from '../Context/StoreContext';
 
 const Navbar: React.FC = observer(() => {
   const [isActive, setIsActive] = useToggle(false);
+  const store = useContext(StoreContext);
 
   const handleScrollTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -21,8 +22,8 @@ const Navbar: React.FC = observer(() => {
 
   const handleClick = () => {
     window.scrollTo(0, 0);
-    if (foodCategoriesStore.scroll !== 0) {
-      foodCategoriesStore.setScroll(0);
+    if (store.scroll !== 0) {
+      store.setScroll(0);
     }
     isActive && setIsActive();
   };

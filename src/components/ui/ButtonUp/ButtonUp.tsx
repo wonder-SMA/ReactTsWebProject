@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import cn from 'classnames';
 
 import classes from './ButtonUp.module.scss';
-import foodCategoriesStore from '../../../stores/foodCategoriesStore';
+import { StoreContext } from '../../Context/StoreContext';
 
 type ButtonType = {
   onClick?: () => void;
@@ -11,17 +11,18 @@ type ButtonType = {
 
 const ButtonUp: React.FC<ButtonType> = observer((props) => {
   const { children, onClick } = props;
+  const store = useContext(StoreContext);
 
   useEffect(() => {
-    window.addEventListener('scroll', () => foodCategoriesStore.setIsShowingButtonUp());
+    window.addEventListener('scroll', () => store.setIsShowingButtonUp());
     return function cleanup() {
-      window.removeEventListener('scroll', () => foodCategoriesStore.setIsShowingButtonUp());
+      window.removeEventListener('scroll', () => store.setIsShowingButtonUp());
     };
   }, []);
 
   const button = cn({
-    [classes.button]: !foodCategoriesStore.isShowingButtonUp,
-    [classes.button_active]: foodCategoriesStore.isShowingButtonUp,
+    [classes.button]: !store.isShowingButtonUp,
+    [classes.button_active]: store.isShowingButtonUp,
   });
 
   return (

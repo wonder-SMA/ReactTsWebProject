@@ -5,10 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './components/App';
 import './index.scss';
+import { StoreContext } from './components/Context/StoreContext';
+import FoodCategoriesStore from './stores';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
-  </ BrowserRouter>,
+    <StoreContext.Provider value={new FoodCategoriesStore()}>
+      <App />
+    </StoreContext.Provider>
+  </BrowserRouter>,
   document.getElementById('root'),
 );

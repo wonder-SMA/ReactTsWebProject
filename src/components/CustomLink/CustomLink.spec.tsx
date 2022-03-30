@@ -17,6 +17,7 @@ describe('CustomLink component', () => {
         class="component"
       >
         <a
+          class=""
           href="/home"
         >
           Главная

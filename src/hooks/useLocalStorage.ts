@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 function useLocalStorage<T>(
   tokenKey: string,
   initialValue: T,
-): [T,  React.Dispatch<T>] {
+): [T, React.Dispatch<T>] {
   const getValue = () => {
     const storage = localStorage.getItem(tokenKey);
     if (storage) {

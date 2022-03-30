@@ -20,6 +20,10 @@ class FoodCategoriesStore {
     this.setDefaultCount();
   }
 
+  get shortData(): CategoryType[] {
+    return this.fullData.slice(0, this.count * this.defaultCount);
+  }
+
   get filteredData(): CategoryType[] {
     if (this.searchValue.length > 0) {
       return this.fullData.filter((category) =>
@@ -31,10 +35,6 @@ class FoodCategoriesStore {
 
   setFilter(value: string) {
     this.searchValue = value;
-  }
-
-  get shortData(): CategoryType[] {
-    return this.fullData.slice(0, this.count * this.defaultCount);
   }
 
   setDefaultCount() {
@@ -60,4 +60,4 @@ class FoodCategoriesStore {
   }
 }
 
-export default new FoodCategoriesStore();
+export default FoodCategoriesStore;
