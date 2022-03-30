@@ -8,7 +8,6 @@ class FoodCategoriesStore {
   searchValue: string = '';
   defaultCount: number = 3;
   count: number = 1;
-  category: CategoryType = {};
   isShowingButtonUp: boolean = false;
   scroll: number = 0;
   imgCount: number = 0;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import Icon from '@mdi/react';
@@ -11,7 +12,7 @@ import { useToggle } from '../../hooks';
 import ButtonUp from '../ui/ButtonUp';
 import foodCategoriesStore from '../../stores/foodCategoriesStore';
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC = observer(() => {
   const [isActive, setIsActive] = useToggle(false);
 
   const handleScrollTop = () => {
@@ -23,7 +24,7 @@ const Navbar: React.FC = () => {
     if (foodCategoriesStore.scroll !== 0) {
       foodCategoriesStore.setScroll(0);
     }
-    setIsActive();
+    isActive && setIsActive();
   };
 
   const menuBtn = cn({
@@ -34,7 +35,7 @@ const Navbar: React.FC = () => {
   return (
     <div className={classes['navbar_fixed']}>
       <nav>
-        <Link to="/">React</Link>
+        <Link to="/" onClick={handleClick}>React</Link>
         <div className={menuBtn} onClick={setIsActive}>
           <span />
         </div>
@@ -49,6 +50,6 @@ const Navbar: React.FC = () => {
       </ButtonUp>
     </div>
   );
-};
+});
 
 export default Navbar;
