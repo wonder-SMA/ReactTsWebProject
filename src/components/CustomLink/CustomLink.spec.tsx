@@ -8,7 +8,7 @@ describe('CustomLink component', () => {
   it('Should contain text node', () => {
     const { container, getByText } = render(
       <MemoryRouter>
-        <CustomLink to="home">Главная</CustomLink>
+        <CustomLink to="main">Главная</CustomLink>
       </MemoryRouter>
     );
     expect(getByText('Главная')).toBeInTheDocument();
@@ -18,7 +18,7 @@ describe('CustomLink component', () => {
       >
         <a
           class=""
-          href="/home"
+          href="/main"
         >
           Главная
         </a>

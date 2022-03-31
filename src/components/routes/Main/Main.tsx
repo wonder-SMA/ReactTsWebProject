@@ -1,8 +1,8 @@
 import React from 'react';
 
-import classes from './Home.module.scss';
+import classes from './Main.module.scss';
 
-const Home: React.FC = () => (
+const Main: React.FC = () => (
   <div className={classes.component}>
     <h1>Главная страница</h1>
     <p>
@@ -44,4 +44,4 @@ const Home: React.FC = () => (
   </div>
 );
 
-export default Home;
+export default Main;

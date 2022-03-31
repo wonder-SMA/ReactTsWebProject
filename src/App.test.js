@@ -37,7 +37,7 @@ describe('on page load', () => {
   }, 16000);
   test('h1 on the main page loads correctly', async () => {
     await page.click("li[class^='CustomLink_component__']:nth-child(1)");
-    const text = await page.$eval("div[class^='Home_component__'] > h1", el => el.textContent);
+    const text = await page.$eval("div[class^='Main_component__'] > h1", el => el.textContent);
     expect(text).toBe('Главная страница');
   }, 16000);
   test('h1 on the about project page loads correctly', async () => {

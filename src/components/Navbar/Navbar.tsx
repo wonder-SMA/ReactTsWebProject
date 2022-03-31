@@ -41,7 +41,7 @@ const Navbar: React.FC = observer(() => {
           <span />
         </div>
         <ul>
-          <CustomLink to="home" onClick={handleClick}>Главная</CustomLink>
+          <CustomLink to="main" onClick={handleClick}>Главная</CustomLink>
           <CustomLink to="catalog" onClick={handleClick}>Каталог</CustomLink>
           <CustomLink to="about" onClick={handleClick}>О проекте</CustomLink>
         </ul>
